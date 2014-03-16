@@ -1,8 +1,6 @@
-
-
-
 //download library at https://github.com/adafruit/AccelStepper
 #include <AccelStepper.h>
+int led = 13;
 
 int motorSpeed = 9600; //maximum steps per second (about 3rps / at 16 microsteps)
 int motorAccel = 80000; //steps/second/secoand to accelerate
@@ -19,12 +17,14 @@ int sofar;  // how much is in the buffer
 char buffer[MAX_BUF];  // where we store the message until we get a ';'
 
 void setup(){
+  pinMode(led, OUTPUT);
+
   stepper.setMaxSpeed(motorSpeed);
   stepper.setSpeed(motorSpeed);
   stepper.setAcceleration(motorAccel);
-  
-  
-  stepper.moveTo(900*5); //move 900 steps (should be 5 rev)
+
+
+  stepper.moveTo(-900); //move 900 steps (should be 5 rev)
 
 
   Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
@@ -33,11 +33,28 @@ void setup(){
 }
 
 void loop(){
+  checkSerial();
 
+  //if stepper is at desired location
+  if (stepper.distanceToGo() == 0){
+    //go the other way the same amount of steps
+    //so if current position is 400 steps out, go position -400
+    // stepper.moveTo(-stepper.currentPosition()); 
+  }
+
+
+
+  //these must be called as often as possible to ensure smooth operation
+  //any delay will cause jerky motion
+  stepper.run();
+}
+String command="";
+
+void checkSerial() {
   // listen for commands
   while(Serial.available() > 0) {  // if something is available
     char c=Serial.read();  // get it
-    Serial.print(c);  // repeat it back so I know you got the message
+    //Serial.print(c);  // repeat it back so I know you got the message
     if(sofar<MAX_BUF) buffer[sofar++]=c;  // store it
     if(buffer[sofar-1]==';') break;  // entire message received
   }
@@ -49,32 +66,52 @@ void loop(){
     processCommand();  // do something with the command
     ready();
   }
-
-
-  //  //if stepper is at desired location
-  //  if (stepper.distanceToGo() == 0){
-  //    //go the other way the same amount of steps
-  //    //so if current position is 400 steps out, go position -400
-  //    stepper.moveTo(-stepper.currentPosition()); 
-  //  }
-
-  
-  
-  //these must be called as often as possible to ensure smooth operation
-  //any delay will cause jerky motion
-  stepper.run();
 }
-
-
+int posTemp = 0;
 void processCommand() {
+
+  Serial.print("a"); 
+
+
+
   // look for commands that start with 'G'
   int cmd=parsenumber('G');
   switch(cmd) {
   case  0: // move in a line
-  case  1: // move in a line
-    stepper.setSpeed(parsenumber('S'));
-    stepper.moveTo(parsenumber('X'));
+    //Serial.print("0");
+    for(int i = 0; i<3; i++)
+    {
+      digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+      delay(500);               // wait for a second
+      digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+      delay(500);
+    }
     break;
+  case  1: // move in a line
+//    //Serial.print("1");
+//    for(int i = 0; i<10; i++)
+//    {
+//      digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+//      delay(100);               // wait for a second
+//      digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+//      delay(100);
+//    }
+
+    //turned this off to get negativ to work
+    //stepper.setSpeed(parsenumber('S'));
+    //stepper.moveTo(stepper.currentPosition() + parsenumber('X'));
+    
+    posTemp = parsenumber('X');
+//    if(posTemp < 0)
+//      {
+//        stepper.moveTo(-stepper.currentPosition());
+//        posTemp *= -1;
+//      }
+    stepper.moveTo(stepper.currentPosition() + posTemp);
+    break;
+    
+    
+    
   default:  
     break;
   }
@@ -86,21 +123,38 @@ void processCommand() {
 
 
 int parsenumber(char c){
-  
+
   //unfinished
-  int n=0;
+  String tempCharString = "";
+  boolean isNegative = false;
+  
+  for(int i = 0; i<MAX_BUF; i++)
+  {
+    if(buffer[i] == c)
+    {
+      while(buffer[i] != ' ')
+      {
+        i++;
+//        if(buffer[i] == '-')
+//          isNegative = true;
+//        else
+          tempCharString += buffer[i];
+      }
+//      if(isNegative)
+//        return tempCharString.toInt()*-1;
+//      else
+        return tempCharString.toInt();
+        
+    }
+  }
+  return 0;
+  //G00 S900 X200
 
-//G00 S900 X200
+    //read buffer
 
-//read buffer
+  //read the chars after c and before space
 
-//read the chars after c and before space
-
-//convert string to int
-
-
-
-  return n;
+  //convert string to int
 
 }
 
@@ -110,6 +164,11 @@ int parsenumber(char c){
 
 void ready() {
   sofar=0;  // clear input buffer
-  Serial.print(F(">"));  // signal ready to receive input
+  // memset(buffer, 0, MAX_BUF); // clear the buffer
+  //Serial.print(F(">"));  // signal ready to receive input
+  //Serial.print("done");  // signal ready to receive input
+
 }
+
+
 
