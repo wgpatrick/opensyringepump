@@ -1072,6 +1072,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <segment>
 <pinref part="C1" gate="G$1" pin="1"/>
 <wire x1="142.24" y1="55.88" x2="129.54" y2="55.88" width="0.1524" layer="91"/>
+<label x="129.54" y="55.88" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="MISO" class="0">
@@ -1141,9 +1142,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="101.6" y="53.34" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="TXD"/>
-<wire x1="149.86" y1="60.96" x2="124.46" y2="60.96" width="0.1524" layer="91"/>
-<label x="124.46" y="60.96" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="RXD"/>
+<wire x1="149.86" y1="58.42" x2="124.46" y2="58.42" width="0.1524" layer="91"/>
+<label x="124.46" y="58.42" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RX" class="0">
@@ -1153,9 +1154,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="101.6" y="55.88" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="RXD"/>
-<wire x1="149.86" y1="58.42" x2="124.46" y2="58.42" width="0.1524" layer="91"/>
-<label x="124.46" y="58.42" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="TXD"/>
+<wire x1="149.86" y1="60.96" x2="124.46" y2="60.96" width="0.1524" layer="91"/>
+<label x="124.46" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="OUT2A" class="0">

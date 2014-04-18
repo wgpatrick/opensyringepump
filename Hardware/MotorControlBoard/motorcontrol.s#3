@@ -950,7 +950,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <part name="R9" library="fab" deviceset="RES-US" device="1206"/>
 <part name="R14" library="fab" deviceset="RES-US" device="1206FAB"/>
 <part name="R16" library="fab" deviceset="RES-US" device="1206FAB"/>
-<part name="C1" library="fab" deviceset="CAP-US" device="1206FAB"/>
+<part name="C1" library="fab" deviceset="CAP-US" device="1206FAB" value=".1uF"/>
 </parts>
 <sheets>
 <sheet>
