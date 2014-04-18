@@ -936,21 +936,20 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <part name="U$4" library="fab" deviceset="PINHD-2X2-SMD" device=""/>
 <part name="0OHM" library="fab" deviceset="RES-US" device="1206FAB"/>
 <part name="R2" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
-<part name="R3" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R4" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R10" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R11" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R12" library="fab" deviceset="RES-US" device="1206" value="0"/>
 <part name="R13" library="fab" deviceset="RES-US" device="1206" value="0"/>
 <part name="R15" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
-<part name="R5" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
-<part name="R6" library="fab" deviceset="RES-US" device="1206" value="0"/>
-<part name="R7" library="fab" deviceset="RES-US" device="1206" value="0"/>
-<part name="R8" library="fab" deviceset="RES-US" device="1206" value="0"/>
-<part name="R9" library="fab" deviceset="RES-US" device="1206" value="0"/>
 <part name="R14" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R16" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="C1" library="fab" deviceset="CAP-US" device="1206FAB" value=".1uF"/>
+<part name="R5" library="fab" deviceset="RES-US" device="1206FAB"/>
+<part name="R6" library="fab" deviceset="RES-US" device="1206FAB"/>
+<part name="R3" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
+<part name="R7" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
+<part name="R8" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 </parts>
 <sheets>
 <sheet>
@@ -968,22 +967,21 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <instance part="U$3" gate="G$1" x="116.84" y="106.68"/>
 <instance part="U$4" gate="G$1" x="25.4" y="114.3"/>
 <instance part="0OHM" gate="G$1" x="104.14" y="33.02" rot="R180"/>
-<instance part="R2" gate="G$1" x="88.9" y="114.3"/>
-<instance part="R3" gate="G$1" x="76.2" y="114.3"/>
+<instance part="R2" gate="G$1" x="76.2" y="114.3"/>
 <instance part="R4" gate="G$1" x="63.5" y="88.9"/>
 <instance part="R10" gate="G$1" x="53.34" y="30.48"/>
 <instance part="R11" gate="G$1" x="40.64" y="30.48"/>
 <instance part="R12" gate="G$1" x="22.86" y="12.7"/>
 <instance part="R13" gate="G$1" x="30.48" y="12.7"/>
 <instance part="R15" gate="G$1" x="101.6" y="60.96"/>
-<instance part="R5" gate="G$1" x="144.78" y="96.52"/>
-<instance part="R6" gate="G$1" x="144.78" y="101.6"/>
-<instance part="R7" gate="G$1" x="129.54" y="88.9"/>
-<instance part="R8" gate="G$1" x="144.78" y="111.76"/>
-<instance part="R9" gate="G$1" x="91.44" y="99.06"/>
 <instance part="R14" gate="G$1" x="12.7" y="25.4"/>
 <instance part="R16" gate="G$1" x="142.24" y="66.04"/>
 <instance part="C1" gate="G$1" x="144.78" y="55.88"/>
+<instance part="R5" gate="G$1" x="144.78" y="60.96"/>
+<instance part="R6" gate="G$1" x="132.08" y="66.04"/>
+<instance part="R3" gate="G$1" x="33.02" y="93.98"/>
+<instance part="R7" gate="G$1" x="22.86" y="93.98"/>
+<instance part="R8" gate="G$1" x="33.02" y="25.4" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -1012,16 +1010,6 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 </net>
 <net name="VCC" class="0">
 <segment>
-<pinref part="R1" gate="G$1" pin="1"/>
-<wire x1="45.72" y1="104.14" x2="38.1" y2="104.14" width="0.1524" layer="91"/>
-<label x="38.1" y="104.14" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="1UF" gate="G$1" pin="1"/>
-<wire x1="48.26" y1="88.9" x2="40.64" y2="88.9" width="0.1524" layer="91"/>
-<label x="40.64" y="88.9" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="U1" gate="A" pin="VCC"/>
 <wire x1="58.42" y1="73.66" x2="50.8" y2="73.66" width="0.1524" layer="91"/>
 <label x="50.8" y="73.66" size="1.778" layer="95"/>
@@ -1042,9 +1030,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="124.46" y="63.5" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R5" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="96.52" x2="154.94" y2="96.52" width="0.1524" layer="91"/>
 <label x="154.94" y="96.52" size="1.778" layer="95"/>
+<pinref part="U$3" gate="G$1" pin="VSS"/>
+<wire x1="139.7" y1="96.52" x2="154.94" y2="96.52" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="0OHM" gate="G$1" pin="2"/>
@@ -1055,6 +1043,11 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <pinref part="AVR-ISP" gate="G$1" pin="VCC"/>
 <wire x1="38.1" y1="7.62" x2="30.48" y2="7.62" width="0.1524" layer="91"/>
 <label x="27.94" y="7.62" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="R7" gate="G$1" pin="1"/>
+<wire x1="17.78" y1="93.98" x2="12.7" y2="93.98" width="0.1524" layer="91"/>
+<label x="12.7" y="93.98" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="RST" class="0">
@@ -1154,8 +1147,8 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="101.6" y="55.88" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="TXD"/>
-<wire x1="149.86" y1="60.96" x2="124.46" y2="60.96" width="0.1524" layer="91"/>
+<pinref part="R5" gate="G$1" pin="1"/>
+<wire x1="139.7" y1="60.96" x2="124.46" y2="60.96" width="0.1524" layer="91"/>
 <label x="124.46" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
@@ -1190,9 +1183,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="104.14" y="68.58" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R9" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="99.06" x2="78.74" y2="99.06" width="0.1524" layer="91"/>
 <label x="78.74" y="99.06" size="1.778" layer="95"/>
+<pinref part="U$3" gate="G$1" pin="CS"/>
+<wire x1="96.52" y1="99.06" x2="78.74" y2="99.06" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="OUT1B" class="0">
@@ -1214,9 +1207,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="104.14" y="73.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R8" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="111.76" x2="157.48" y2="111.76" width="0.1524" layer="91"/>
 <label x="152.4" y="111.76" size="1.778" layer="95"/>
+<pinref part="U$3" gate="G$1" pin="A"/>
+<wire x1="157.48" y1="111.76" x2="139.7" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="OUT2B" class="0">
@@ -1238,9 +1231,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="104.14" y="76.2" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R6" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="101.6" x2="154.94" y2="101.6" width="0.1524" layer="91"/>
 <label x="152.4" y="101.6" size="1.778" layer="95"/>
+<pinref part="U$3" gate="G$1" pin="B"/>
+<wire x1="154.94" y1="101.6" x2="139.7" y2="101.6" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="IN1B" class="0">
@@ -1250,9 +1243,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="104.14" y="66.04" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R7" gate="G$1" pin="2"/>
-<wire x1="134.62" y1="88.9" x2="139.7" y2="88.9" width="0.1524" layer="91"/>
 <label x="137.16" y="88.9" size="1.778" layer="95"/>
+<pinref part="U$3" gate="G$1" pin="DGND"/>
+<wire x1="124.46" y1="88.9" x2="139.7" y2="88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="JUMP1" class="0">
@@ -1283,50 +1276,13 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <segment>
 <pinref part="U$3" gate="G$1" pin="SDO"/>
 <pinref part="R2" gate="G$1" pin="2"/>
-<wire x1="93.98" y1="114.3" x2="96.52" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="114.3" x2="96.52" y2="114.3" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
 <segment>
 <pinref part="U1" gate="A" pin="GND_2"/>
 <pinref part="R10" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="N$1" class="0">
-<segment>
-<pinref part="U$3" gate="G$1" pin="VSS"/>
-<pinref part="R5" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$2" class="0">
-<segment>
-<pinref part="U$3" gate="G$1" pin="B"/>
-<pinref part="R6" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$3" class="0">
-<segment>
-<pinref part="U$3" gate="G$1" pin="DGND"/>
-<pinref part="R7" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$4" class="0">
-<segment>
-<pinref part="U$3" gate="G$1" pin="A"/>
-<pinref part="R8" gate="G$1" pin="1"/>
-</segment>
-</net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="U$3" gate="G$1" pin="CS"/>
-<pinref part="R9" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="N$11" class="0">
-<segment>
-<pinref part="R2" gate="G$1" pin="1"/>
-<pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="81.28" y1="114.3" x2="83.82" y2="114.3" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$12" class="0">
@@ -1379,17 +1335,13 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 </net>
 <net name="GNDD" class="0">
 <segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<wire x1="71.12" y1="114.3" x2="55.88" y2="114.3" width="0.1524" layer="91"/>
-<label x="66.04" y="114.3" size="1.778" layer="95"/>
-</segment>
-<segment>
+<pinref part="R14" gate="G$1" pin="2"/>
 <pinref part="R12" gate="G$1" pin="1"/>
 <wire x1="17.78" y1="12.7" x2="17.78" y2="25.4" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="GND"/>
-<wire x1="17.78" y1="25.4" x2="58.42" y2="25.4" width="0.1524" layer="91"/>
-<pinref part="R14" gate="G$1" pin="2"/>
+<pinref part="R8" gate="G$1" pin="2"/>
+<wire x1="27.94" y1="25.4" x2="17.78" y2="25.4" width="0.1524" layer="91"/>
 <junction x="17.78" y="25.4"/>
+<label x="17.78" y="20.32" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CTS" class="0">
@@ -1399,9 +1351,9 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="101.6" y="50.8" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R16" gate="G$1" pin="1"/>
-<wire x1="137.16" y1="66.04" x2="134.62" y2="66.04" width="0.1524" layer="91"/>
-<label x="134.62" y="66.04" size="1.778" layer="95"/>
+<pinref part="R6" gate="G$1" pin="1"/>
+<wire x1="127" y1="66.04" x2="121.92" y2="66.04" width="0.1524" layer="91"/>
+<label x="121.92" y="66.04" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$7" class="0">
@@ -1415,6 +1367,47 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <segment>
 <pinref part="U$1" gate="G$1" pin="RTS"/>
 <pinref part="C1" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="TXD"/>
+<pinref part="R5" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="R16" gate="G$1" pin="1"/>
+<pinref part="R6" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="1UF" gate="G$1" pin="1"/>
+<pinref part="R3" gate="G$1" pin="2"/>
+<wire x1="38.1" y1="93.98" x2="48.26" y2="88.9" width="0.1524" layer="91"/>
+<pinref part="R1" gate="G$1" pin="1"/>
+<wire x1="45.72" y1="104.14" x2="38.1" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="104.14" x2="38.1" y2="93.98" width="0.1524" layer="91"/>
+<junction x="38.1" y="93.98"/>
+</segment>
+</net>
+<net name="N$4" class="0">
+<segment>
+<pinref part="R3" gate="G$1" pin="1"/>
+<pinref part="R7" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="GNDDD" class="0">
+<segment>
+<wire x1="71.12" y1="114.3" x2="55.88" y2="114.3" width="0.1524" layer="91"/>
+<label x="66.04" y="114.3" size="1.778" layer="95"/>
+<pinref part="R2" gate="G$1" pin="1"/>
+</segment>
+<segment>
+<pinref part="U1" gate="A" pin="GND"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="58.42" y1="25.4" x2="38.1" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
