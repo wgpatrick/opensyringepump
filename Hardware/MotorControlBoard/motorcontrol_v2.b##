@@ -115,7 +115,7 @@
 <wire x1="0" y1="0" x2="0" y2="76.2" width="0" layer="20"/>
 <wire x1="0" y1="76.2" x2="50.8" y2="76.2" width="0" layer="20"/>
 <wire x1="50.8" y1="76.2" x2="50.8" y2="0" width="0" layer="20"/>
-<circle x="21.59" y="27.8638" radius="27.8638" width="0.254" layer="16"/>
+<circle x="21.59" y="27.8638" radius="27.686" width="0.254" layer="16"/>
 <rectangle x1="-4.318" y1="19.939" x2="17.018" y2="37.211" layer="47"/>
 <rectangle x1="0" y1="0" x2="50.8" y2="76.2" layer="20"/>
 <circle x="21.59" y="0" radius="2.54" width="0.254" layer="16"/>
