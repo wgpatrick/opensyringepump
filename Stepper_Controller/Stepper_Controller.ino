@@ -2,7 +2,7 @@
 #include <AccelStepper.h>
 int led = 13;
 
-int motorSpeed = 9600; //maximum steps per second (about 3rps / at 16 microsteps)
+int motorSpeed = 800; //maximum steps per second (about 3rps / at 16 microsteps)
 int motorAccel = 80000; //steps/second/secoand to accelerate
 
 int motorDirPin = 2; //digital pin 2
@@ -24,7 +24,7 @@ void setup(){
   stepper.setAcceleration(motorAccel);
 
 
-  stepper.moveTo(-900); //move 900 steps (should be 5 rev)
+  stepper.moveTo(1600); //move 900 steps (should be 5 rev)
 
 
   Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
@@ -46,7 +46,9 @@ void loop(){
 
   //these must be called as often as possible to ensure smooth operation
   //any delay will cause jerky motion
+  //
   stepper.run();
+
 }
 String command="";
 
@@ -68,6 +70,7 @@ void checkSerial() {
   }
 }
 int posTemp = 0;
+int speedTemp = 0;
 void processCommand() {
 
   Serial.print("a"); 
@@ -79,13 +82,19 @@ void processCommand() {
   switch(cmd) {
   case  0: // move in a line
     //Serial.print("0");
-    for(int i = 0; i<3; i++)
-    {
-      digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
-      delay(500);               // wait for a second
-      digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
-      delay(500);
-    }
+   // /*
+   speedTemp = parsenumber('S');
+//    for(int i = 0; i<speedTemp; i++)
+//    {
+//      digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+//      delay(100);               // wait for a second
+//      digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+//      delay(100);
+//    }
+    //*/
+    stepper.setMaxSpeed(speedTemp);
+    stepper.setSpeed(speedTemp);
+    //stepper.runSpeed();
     break;
   case  1: // move in a line
 //    //Serial.print("1");
@@ -102,11 +111,6 @@ void processCommand() {
     //stepper.moveTo(stepper.currentPosition() + parsenumber('X'));
     
     posTemp = parsenumber('X');
-//    if(posTemp < 0)
-//      {
-//        stepper.moveTo(-stepper.currentPosition());
-//        posTemp *= -1;
-//      }
     stepper.moveTo(stepper.currentPosition() + posTemp);
     break;
     
@@ -124,7 +128,7 @@ void processCommand() {
 
 int parsenumber(char c){
 
-  //unfinished
+
   String tempCharString = "";
   boolean isNegative = false;
   
@@ -135,14 +139,8 @@ int parsenumber(char c){
       while(buffer[i] != ' ')
       {
         i++;
-//        if(buffer[i] == '-')
-//          isNegative = true;
-//        else
-          tempCharString += buffer[i];
+        tempCharString += buffer[i];
       }
-//      if(isNegative)
-//        return tempCharString.toInt()*-1;
-//      else
         return tempCharString.toInt();
         
     }

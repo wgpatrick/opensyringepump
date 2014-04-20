@@ -11,6 +11,7 @@ float ulPerRevolution;
 float syringeInnerDiameter;
 float pitch;
 int stepsPerRevolution;
+int percentMotorSpeed;
 
 String gCodeString;
 
@@ -68,7 +69,7 @@ void setup()
    .setFont(font)
    .setFocus(false)
    .setColor(color(50,50,50))
-   .setText("3")
+   .setText("7")
    .setLabel("Syringe inner diameter (mm)")
    .setAutoClear(false).keepFocus(false);
    ;
@@ -79,7 +80,7 @@ void setup()
    .setFont(font)
    .setFocus(false)
    .setColor(color(50,50,50))
-   .setText("8")
+   .setText("2.116")
    .setLabel("Pitch of threaded rod (mm)")
    .setAutoClear(false).keepFocus(false);
    ;
@@ -90,8 +91,19 @@ void setup()
    .setFont(font)
    .setFocus(false)
    .setColor(color(50,50,50))
-   .setText("16")
-   .setLabel("Number steps per revolution")
+   .setText("200")
+   .setLabel("Number steps per revolution\n8 micro steps")
+   .setAutoClear(false).keepFocus(false);
+   ;
+   
+   cp5.addTextfield("percentMotorSpeedField")
+   .setPosition(290,10)
+   .setSize(100,25)
+   .setFont(font)
+   .setFocus(false)
+   .setColor(color(50,50,50))
+   .setText("100")
+   .setLabel("percent motor speed")
    .setAutoClear(false).keepFocus(false);
    ;
 
@@ -125,19 +137,26 @@ void debugStates()
   flowRate = float(cp5.get(Textfield.class,"flowRateField").getText().trim());
   syringeInnerDiameter = float(cp5.get(Textfield.class,"syringeInnerDiameterField").getText().trim());
   pitch = float(cp5.get(Textfield.class,"pitchField").getText().trim());
-  stepsPerRevolution = int(cp5.get(Textfield.class,"stepsPerRevolutionField").getText().trim());
+  stepsPerRevolution = int(cp5.get(Textfield.class,"stepsPerRevolutionField").getText().trim())*8;
+  percentMotorSpeed = int(cp5.get(Textfield.class,"percentMotorSpeedField").getText().trim());
   
-  ulPerRevolution = syringeInnerDiameter * PI * pitch;
+  ulPerRevolution = sq(syringeInnerDiameter) * PI * pitch;
   
   String dir = "PUSH";
   if(!direction)
     dir = "PULL";
   
   text("Motor + syringe settings : "+ ulPerRevolution +"uL/revolution *** 1 step = " + stepsPerRevolution/ulPerRevolution + "uL *** 1 uL = "+1/(stepsPerRevolution/ulPerRevolution) +"steps", 0, 0);
-  text("Program settings : "+totalFlow +"uL @ " + flowRate +"uL/s, direction : " + dir, 0, 20);
+  text(int(map(percentMotorSpeed,0,100, 0,540)) + " steps per second", 0, 20);
+  text(int(map(percentMotorSpeed,0,100, 0, 540))*1/(stepsPerRevolution/ulPerRevolution) + " uL per second", 0, 40);
+
+  
+  text("Program settings : "+totalFlow +"uL @ " + flowRate +"uL/s, direction : " + dir, 0, 60);
+  
+  
   
   gCodeString = "G01"+" S"+str(20)+" X"+str(03)+";";
-  text("GCODE PREVIEW :\n" + gCodeString, 0, 40);
+  text("GCODE PREVIEW :\n" + gCodeString, 0, 80);
   
   popMatrix();
 }
@@ -157,13 +176,13 @@ void keyPressed() {
     {
       // send Gcode position up 1
       println("manualMode : send gcode position up 1");
-      myPort.write("G01 S9600 X450;");
+      myPort.write("G01 X+"+stepsPerRevolution+";");
     } 
     else if (keyCode == DOWN) 
     {
       // send Gcode position down 1
       println("manualMode : send gcode position down 1");
-      myPort.write("G01 S9600 X-450;");
+      myPort.write("G01 X-"+stepsPerRevolution+";");
     } 
     else if (keyCode == LEFT) 
     {
@@ -180,9 +199,10 @@ void keyPressed() {
     {
       direction = !direction;
     }
-    else if (key == 'p')
+    else if (key == 's')
     {
-    //myPort.write(65);
+    //println("set speed");
+    myPort.write("G00 S"+percentMotorSpeed+";");
     }
   }
     
