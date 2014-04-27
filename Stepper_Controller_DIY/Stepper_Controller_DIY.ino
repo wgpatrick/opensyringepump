@@ -7,7 +7,7 @@
 
 #include <AccelStepper.h>
 
-int motorSpeed = 100; // Maximum steps per second (about 3rps / at 16 microsteps)
+int motorSpeed = 25; // Maximum steps per second (about 3rps / at 16 microsteps)
 int motorAccel = 500; // Steps/second/secoand to accelerate
 
 // Input pins on the ATMega328 for the stepper motor
@@ -31,7 +31,7 @@ void setup(){
   stepper.setSpeed(motorSpeed);
   stepper.setAcceleration(motorAccel);
 
-  stepper.moveTo(-400); // move 1000 steps (should be 5 rev)
+  stepper.moveTo(-50); // move 1000 steps (should be 5 rev)
   Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
 
 }
