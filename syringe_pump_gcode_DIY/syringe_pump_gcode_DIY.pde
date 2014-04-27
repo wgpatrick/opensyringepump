@@ -2,6 +2,7 @@ import controlP5.*;
 ControlP5 cp5;
 String uLValue = "";
 boolean direction = false;
+boolean commandReady = true;
 
 import processing.serial.*;
 
@@ -21,13 +22,13 @@ Serial myPort;
 
 void setup()
 {
-  size(1000,300);
+  size(1000,500);
   
   // List all the available serial ports:
   println(Serial.list());
 
   // Open the port you are using at the rate you want:
-  myPort = new Serial(this, Serial.list()[5], 9600);
+  //myPort = new Serial(this, Serial.list()[5], 9600);
   
   // Send a capital A out the serial port:
   //myPort.write(65);
@@ -125,6 +126,7 @@ void setup()
 void draw()
 {
   background(245);
+ // readSerial();
   debugStates();
 }
 
@@ -144,6 +146,9 @@ void debugStates()
   stepsPerRevolution = int(cp5.get(Textfield.class,"stepsPerRevolutionField").getText().trim());
   percentMotorSpeed = int(cp5.get(Textfield.class,"percentMotorSpeedField").getText().trim());
   
+// set motor speed based on flow rate
+// flow rate = uL/sec
+// motor speed = 
 
   ulPerRevolution = sq(syringeInnerDiameter) / 4 * PI * pitch;
   volume_per_step = ulPerRevolution / stepsPerRevolution;
@@ -179,43 +184,70 @@ void controlEvent(ControlEvent theEvent) {
   }
 }
 
+void readSerial()
+{
+  int inByte = 0;
+  while (myPort.available() > 0) {
+    inByte = myPort.read();
+    println(inByte);
+  }
+  // 'a' is 97 as an int
+  if (inByte == 97)
+  {
+    commandReady = true;
+  }
+
+}
+
 void keyPressed() {
+  println("Key: " + str(key) + " " + int(key) + ", KeyCode: " + keyCode); 
   if (key == CODED) 
   {
-    if (keyCode == UP) 
+    if(commandReady)
     {
-      // send Gcode position up 1
-      println("manualMode : send gcode position up 1");
-      myPort.write("G01 X+"+stepsPerRevolution+";");
-    } 
-    else if (keyCode == DOWN) 
-    {
-      // send Gcode position down 1
-      println("manualMode : send gcode position down 1");
-      myPort.write("G01 X-"+stepsPerRevolution+";");
-    } 
-    else if (keyCode == LEFT) 
-    {
+      /*
+      if (keyCode == SHIFT )
+      {
       
-    } 
-    else if (keyCode == RIGHT) 
-    {
-      
-    }  
-  }
-  else
-  {
-    if(key == 'd')
-    {
-      direction = !direction;
+      }
+      else if (keyCode == UP) 
+      {
+        // send Gcode position up 1
+        println("manualMode : send gcode position up 1");
+        myPort.write("G01 X+"+stepsPerRevolution+";");
+        commandReady = false;
+      } 
+      else if (keyCode == DOWN) 
+      {
+        // send Gcode position down 1
+        println("manualMode : send gcode position down 1");
+        myPort.write("G01 X-"+stepsPerRevolution+";");
+        commandReady = false;
+      } 
+      else if (keyCode == LEFT) 
+      {
+        
+      } 
+      else if (keyCode == RIGHT) 
+      {
+        
+      }  
     }
-    else if (key == 's')
+    else
     {
-    //println("set speed");
-    myPort.write("G00 S"+percentMotorSpeed+";");
+      if(key == 'd')
+      {
+        direction = !direction;
+      }
+      else if (key == 's')
+      {
+      //println("set speed");
+      myPort.write("G00 S"+percentMotorSpeed+";");
+      commandReady = false;
+      }
+      */
     }
   }
-    
 }
 
 
