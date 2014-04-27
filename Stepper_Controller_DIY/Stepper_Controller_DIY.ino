@@ -1,4 +1,4 @@
-/// Hello! This is the stepper controller code for the Open Syringe Pump project.
+
 /// Written by Che-Wei Wang, Taylor Levy & Will Patrick
 /// MIT Media Lab, 2014
 
@@ -50,20 +50,21 @@ void loop() {
 
   //if stepper is at desired location
   //if (stepper.distanceToGo() == 0) {
-    //go the other way the same amount of steps
-    //so if current position is 400 steps out, go position -400
-    // stepper.moveTo(-stepper.currentPosition());
+  //go the other way the same amount of steps
+  //so if current position is 400 steps out, go position -400
+  // stepper.moveTo(-stepper.currentPosition());
   //}
   //these must be called as often as possible to ensure smooth operation
   //any delay will cause jerky motion
-  //stepper.run();
-  stepper.runSpeed();
+  stepper.run();
+  //stepper.runSpeed();
 }
 
 
 
 
 void checkSerial() {
+
   // listen for commands
   while (Serial.available() > 0) { // if something is available
     char c = Serial.read(); // get it
@@ -84,36 +85,44 @@ void checkSerial() {
 
 
 void processCommand() {
-  Serial.print("a"); //send 'a' to processing to say we're ready for next line
+
+
+
+  // look for commands that start with 'S'
+
+
 
   int posTemp = 0;
+  int sp=0;
 
   // look for commands that start with 'G'
   int cmd = parsenumber('G');
   switch (cmd) {
-    case  0: // move fast
-      stepper.setMaxSpeed(travelSpeed);
-      stepper.setSpeed(travelSpeed);
-      posTemp = parsenumber('X');
-      stepper.moveTo(stepper.currentPosition() + posTemp);
-      break;
-    case  1: // move in a line
-      posTemp = parsenumber('X');
-      stepper.moveTo(stepper.currentPosition() + posTemp);
-      break;
+  case  0: // move fast
+    sp= parsenumber('S'); //get speed
+    stepper.setMaxSpeed(travelSpeed);
+    stepper.setSpeed(travelSpeed);
+    
+    posTemp = parsenumber('X');
+    stepper.moveTo(stepper.currentPosition() + posTemp);
+    break;
 
-    default:
-      break;
-      // if the string has no G or M commands it will get here and the Arduino will silently ignore it
-  }
-
-  // look for commands that start with 'S'
-  int sp = parsenumber('S'); //get speed
-  if (sp != 0) {
-    //set speed
+  case  1: // move in a line
+    sp = parsenumber('S'); //get speed
     stepper.setMaxSpeed(sp);
     stepper.setSpeed(sp);
+    posTemp = parsenumber('X');
+    stepper.moveTo(stepper.currentPosition() + posTemp);
+    break;
+
+  default:
+
+    break;
+    // if the string has no G or M commands it will get here and the Arduino will silently ignore it
+
+
   }
+
 }
 
 
@@ -128,7 +137,7 @@ int parsenumber(char c) {
   {
     if (buffer[i] == c)
     {
-      while (buffer[i] != ' ')
+      while (buffer[i] != ' ')//look for spaces
       {
         i++;
         //        if(buffer[i] == '-')
@@ -157,8 +166,14 @@ void ready() {
   // memset(buffer, 0, MAX_BUF); // clear the buffer
   //Serial.print(F(">"));  // signal ready to receive input
   //Serial.print("done");  // signal ready to receive input
+  Serial.print("a"); //send 'a' to processing to say we're ready for next line
 
 }
+
+
+
+
+
 
 
 
