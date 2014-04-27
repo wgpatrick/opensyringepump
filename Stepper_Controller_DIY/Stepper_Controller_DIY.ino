@@ -40,12 +40,7 @@ void setup() {
   stepper.setSpeed(motorSpeed);
   stepper.setAcceleration(motorAccel);
 
-<<<<<<< HEAD
   stepper.moveTo(-50); // move 1000 steps (should be 5 rev)
-=======
-  //move motor to say hello
-  stepper.moveTo(-400); // move 1000 steps (should be 5 rev)
->>>>>>> 15b88ca4eca966e820c446a173c75f1d538a446e
   Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
 
 }
