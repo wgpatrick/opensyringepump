@@ -1,0 +1,2 @@
+flowRate,totalFlow,ulPerRevolution,volume_per_step,numsteps_per_microliter,syringeInnerDiameter,pitch,stepsPerRevolution,num_steps_vol,speed_steps_per_second,motorSpeedStepsPerSecond
+5.0,30.0,100.53097,0.25132743,3.9788735,4.0,8.0,200,119.3662,19.894367,200
