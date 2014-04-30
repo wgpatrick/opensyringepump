@@ -30,7 +30,7 @@ String command = "";
 AccelStepper stepper(AccelStepper::HALF4WIRE, A0, A1, A4, A3);
 
 int sofar;  // How much is in the buffer
-#define MAX_BUF (12)  // What is the longest message Arduino can store? 64 characters
+#define MAX_BUF (64)  // What is the longest message Arduino can store? 64 characters
 char buffer[MAX_BUF];  // Where we store the message until we get a ';'
 
 void setup() {
@@ -77,8 +77,9 @@ void checkSerial() {
     // we got a message and it ends with a semicolon
     buffer[sofar] = 0; // end the buffer so string functions work right
     Serial.print(F("\r\n"));  // echo a return character for humans
+        ready();
+
     processCommand();  // do something with the command
-    ready();
   }
 }
 
