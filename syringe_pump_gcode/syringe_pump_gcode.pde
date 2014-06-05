@@ -2,15 +2,12 @@ import controlP5.*;
 ControlP5 cp5;
 String uLValue = "";
 boolean direction = false;
-boolean commandReady = true;
 
 import processing.serial.*;
 
 float flowRate;
 float totalFlow;
 float ulPerRevolution;
-float volume_per_step;
-float numsteps_per_microliter;
 float syringeInnerDiameter;
 float pitch;
 int stepsPerRevolution;
@@ -22,13 +19,13 @@ Serial myPort;
 
 void setup()
 {
-  size(1000,500);
+  size(1000,300);
   
   // List all the available serial ports:
   println(Serial.list());
 
   // Open the port you are using at the rate you want:
-  //myPort = new Serial(this, Serial.list()[5], 9600);
+  myPort = new Serial(this, Serial.list()[5], 9600);
   
   // Send a capital A out the serial port:
   //myPort.write(65);
@@ -95,7 +92,7 @@ void setup()
    .setFocus(false)
    .setColor(color(50,50,50))
    .setText("200")
-   .setLabel("Number steps per revolution\n2 micro steps")
+   .setLabel("Number steps per revolution\n8 micro steps")
    .setAutoClear(false).keepFocus(false);
    ;
    
@@ -116,8 +113,6 @@ void setup()
   flowRate=0;
   totalFlow=0;
   ulPerRevolution=0;
-  volume_per_step =0;
-  numsteps_per_microliter=0;
   stepsPerRevolution=0;
   gCodeString = "%\n%";
 
@@ -126,7 +121,6 @@ void setup()
 void draw()
 {
   background(245);
- // readSerial();
   debugStates();
 }
 
@@ -143,35 +137,26 @@ void debugStates()
   flowRate = float(cp5.get(Textfield.class,"flowRateField").getText().trim());
   syringeInnerDiameter = float(cp5.get(Textfield.class,"syringeInnerDiameterField").getText().trim());
   pitch = float(cp5.get(Textfield.class,"pitchField").getText().trim());
-  stepsPerRevolution = int(cp5.get(Textfield.class,"stepsPerRevolutionField").getText().trim());
+  stepsPerRevolution = int(cp5.get(Textfield.class,"stepsPerRevolutionField").getText().trim())*8;
   percentMotorSpeed = int(cp5.get(Textfield.class,"percentMotorSpeedField").getText().trim());
   
-// set motor speed based on flow rate
-// flow rate = uL/sec
-// motor speed = 
-
-  ulPerRevolution = sq(syringeInnerDiameter) / 4 * PI * pitch;
-  volume_per_step = ulPerRevolution / stepsPerRevolution;
-  numsteps_per_microliter = 1 / volume_per_step;
+  ulPerRevolution = sq(syringeInnerDiameter) * PI * pitch;
   
   String dir = "PUSH";
   if(!direction)
     dir = "PULL";
   
-  text("uL per revolution: " + str(ulPerRevolution),0,0);
-  text("volume per step: "+ str(volume_per_step),0,20);
-  text("number of steps per microliter :"+ str(numsteps_per_microliter),0,40);
-  
-  text(int(map(percentMotorSpeed,0,100, 0,540)) + " steps per second", 0, 60);
-  text(int(map(percentMotorSpeed,0,100, 0, 540))*1/(stepsPerRevolution/ulPerRevolution) + " uL per second", 0, 80);
+  text("Motor + syringe settings : "+ ulPerRevolution +"uL/revolution *** 1 step = " + stepsPerRevolution/ulPerRevolution + "uL *** 1 uL = "+1/(stepsPerRevolution/ulPerRevolution) +"steps", 0, 0);
+  text(int(map(percentMotorSpeed,0,100, 0,540)) + " steps per second", 0, 20);
+  text(int(map(percentMotorSpeed,0,100, 0, 540))*1/(stepsPerRevolution/ulPerRevolution) + " uL per second", 0, 40);
 
   
-  text("Program settings : "+ totalFlow + "uL @ " + flowRate +"uL/s, direction : " + dir, 0, 60);
+  text("Program settings : "+totalFlow +"uL @ " + flowRate +"uL/s, direction : " + dir, 0, 60);
   
   
   
   gCodeString = "G01"+" S"+str(20)+" X"+str(03)+";";
-  text("GCODE PREVIEW :\n" + gCodeString, 0, 100);
+  text("GCODE PREVIEW :\n" + gCodeString, 0, 80);
   
   popMatrix();
 }
@@ -184,70 +169,43 @@ void controlEvent(ControlEvent theEvent) {
   }
 }
 
-void readSerial()
-{
-  int inByte = 0;
-  while (myPort.available() > 0) {
-    inByte = myPort.read();
-    println(inByte);
-  }
-  // 'a' is 97 as an int
-  if (inByte == 97)
-  {
-    commandReady = true;
-  }
-
-}
-
 void keyPressed() {
-  println("Key: " + str(key) + " " + int(key) + ", KeyCode: " + keyCode); 
   if (key == CODED) 
   {
-    if(commandReady)
+    if (keyCode == UP) 
     {
-      /*
-      if (keyCode == SHIFT )
-      {
+      // send Gcode position up 1
+      println("manualMode : send gcode position up 1");
+      myPort.write("G01 X+"+stepsPerRevolution+";");
+    } 
+    else if (keyCode == DOWN) 
+    {
+      // send Gcode position down 1
+      println("manualMode : send gcode position down 1");
+      myPort.write("G01 X-"+stepsPerRevolution+";");
+    } 
+    else if (keyCode == LEFT) 
+    {
       
-      }
-      else if (keyCode == UP) 
-      {
-        // send Gcode position up 1
-        println("manualMode : send gcode position up 1");
-        myPort.write("G01 X+"+stepsPerRevolution+";");
-        commandReady = false;
-      } 
-      else if (keyCode == DOWN) 
-      {
-        // send Gcode position down 1
-        println("manualMode : send gcode position down 1");
-        myPort.write("G01 X-"+stepsPerRevolution+";");
-        commandReady = false;
-      } 
-      else if (keyCode == LEFT) 
-      {
-        
-      } 
-      else if (keyCode == RIGHT) 
-      {
-        
-      }  
-    }
-    else
+    } 
+    else if (keyCode == RIGHT) 
     {
-      if(key == 'd')
-      {
-        direction = !direction;
-      }
-      else if (key == 's')
-      {
-      //println("set speed");
-      myPort.write("G00 S"+percentMotorSpeed+";");
-      commandReady = false;
-      }
-      */
+      
+    }  
+  }
+  else
+  {
+    if(key == 'd')
+    {
+      direction = !direction;
+    }
+    else if (key == 's')
+    {
+    //println("set speed");
+    myPort.write("G00 S"+percentMotorSpeed+";");
     }
   }
+    
 }
 
 
