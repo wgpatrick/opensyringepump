@@ -1,3 +1,6 @@
+/// Written by Che-Wei Wang, Taylor Levy & Will Patrick
+/// MIT Media Lab, 2014
+
 import controlP5.*;
 ControlP5 cp5;
 String uLValue = "";

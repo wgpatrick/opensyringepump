@@ -39,7 +39,6 @@ void setup() {
   stepper.setMaxSpeed(motorSpeed);
   stepper.setSpeed(motorSpeed);
   stepper.setAcceleration(motorAccel);
-
   stepper.moveTo(-50); // move 1000 steps (should be 5 rev)
   Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
 
@@ -47,17 +46,7 @@ void setup() {
 
 void loop() {
   checkSerial();
-
-  //if stepper is at desired location
-  //if (stepper.distanceToGo() == 0) {
-  //go the other way the same amount of steps
-  //so if current position is 400 steps out, go position -400
-  // stepper.moveTo(-stepper.currentPosition());
-  //}
-  //these must be called as often as possible to ensure smooth operation
-  //any delay will cause jerky motion
   stepper.run();
-  //stepper.runSpeed();
 }
 
 
