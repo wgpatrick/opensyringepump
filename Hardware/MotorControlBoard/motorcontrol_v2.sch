@@ -926,7 +926,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <parts>
 <part name="U1" library="fab" deviceset="ATMEGA328P-AU" device=""/>
 <part name="U$1" library="fab" deviceset="FTDI-SMD-HEADER" device=""/>
-<part name="20MHZ" library="fab" deviceset="RESONATOR" device="" value="20MHZ"/>
+<part name="U$2" library="fab" deviceset="RESONATOR" device=""/>
 <part name="AVR-ISP" library="fab" deviceset="AVRISP" device="SMD" value=""/>
 <part name="1UF" library="fab" deviceset="CAP-US" device="1206FAB" value="1uF"/>
 <part name="C2" library="fab" deviceset="CAP-US" device="1206FAB" value=".1uF"/>
@@ -934,7 +934,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <part name="R1" library="fab" deviceset="RES-US" device="1206FAB" value="10K"/>
 <part name="U$3" library="BillPorter" deviceset="AD5290" device=""/>
 <part name="U$4" library="fab" deviceset="PINHD-2X2-SMD" device=""/>
-<part name="0OHM" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
+<part name="0OHM" library="fab" deviceset="RES-US" device="1206FAB"/>
 <part name="R2" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R4" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R10" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
@@ -945,8 +945,8 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <part name="R14" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R16" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="C1" library="fab" deviceset="CAP-US" device="1206FAB" value=".1uF"/>
-<part name="R5" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
-<part name="R6" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
+<part name="R5" library="fab" deviceset="RES-US" device="1206FAB"/>
+<part name="R6" library="fab" deviceset="RES-US" device="1206FAB"/>
 <part name="R3" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R7" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
 <part name="R8" library="fab" deviceset="RES-US" device="1206FAB" value="0"/>
@@ -958,7 +958,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <instances>
 <instance part="U1" gate="A" x="76.2" y="53.34"/>
 <instance part="U$1" gate="G$1" x="149.86" y="55.88"/>
-<instance part="20MHZ" gate="G$1" x="20.32" y="45.72"/>
+<instance part="U$2" gate="G$1" x="20.32" y="45.72"/>
 <instance part="AVR-ISP" gate="G$1" x="43.18" y="10.16" rot="R180"/>
 <instance part="1UF" gate="G$1" x="50.8" y="88.9"/>
 <instance part="C2" gate="G$1" x="121.92" y="30.48"/>
@@ -1111,7 +1111,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="48.26" y="38.1" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="20MHZ" gate="G$1" pin="1"/>
+<pinref part="U$2" gate="G$1" pin="1"/>
 <wire x1="12.7" y1="45.72" x2="2.54" y2="45.72" width="0.1524" layer="91"/>
 <label x="2.54" y="45.72" size="1.778" layer="95"/>
 </segment>
@@ -1123,7 +1123,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <label x="48.26" y="35.56" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="20MHZ" gate="G$1" pin="3"/>
+<pinref part="U$2" gate="G$1" pin="3"/>
 <wire x1="27.94" y1="45.72" x2="38.1" y2="45.72" width="0.1524" layer="91"/>
 <label x="35.56" y="45.72" size="1.778" layer="95"/>
 </segment>
@@ -1315,7 +1315,7 @@ Specs @ http://www.analog.com/en/digital-to-analog-converters/digital-potentiome
 <wire x1="58.42" y1="27.94" x2="45.72" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="27.94" x2="45.72" y2="30.48" width="0.1524" layer="91"/>
 <junction x="45.72" y="30.48"/>
-<pinref part="20MHZ" gate="G$1" pin="2"/>
+<pinref part="U$2" gate="G$1" pin="2"/>
 <wire x1="20.32" y1="38.1" x2="20.32" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="20.32" y1="27.94" x2="45.72" y2="27.94" width="0.1524" layer="91"/>
 <junction x="45.72" y="27.94"/>
